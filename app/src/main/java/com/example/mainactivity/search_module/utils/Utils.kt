@@ -1,8 +1,10 @@
 package com.example.mainactivity.search_module.utils
 
 import com.example.mainactivity.search_module.data.constants.SearchResponseConstants
+import com.example.mainactivity.search_module.data.models.dtos.SearchItemModel
 import com.example.mainactivity.search_module.data.models.dtos.SearchRowComponentModel
 import com.example.mainactivity.search_module.data.models.response.ArtistItemFollowersModel
+import com.example.mainactivity.utils.general_utils.Utility
 
 object Utils {
 
@@ -45,5 +47,22 @@ object Utils {
 
     fun getCapitalisedList(genres: List<String>?): List<String>? {
         return genres?.map { capitalizeEveryWord(it) }
+    }
+
+    fun getHeaderItem(type: String)
+            : SearchItemModel.SearchHeaderClass? {
+        val text = when(type){
+            SearchResponseConstants.ALBUMS -> "Albums"
+            SearchResponseConstants.ARTISTS -> "Artists"
+            SearchResponseConstants.SHOWS -> "Shows"
+            SearchResponseConstants.TRACKS -> "Tracks"
+            SearchResponseConstants.EPISODES -> "Episodes"
+            SearchResponseConstants.PLAYLISTS -> "Playlists"
+            else -> null
+        }
+        if (Utility.isValidText(text)){
+            return SearchItemModel.SearchHeaderClass(titleText = text)
+        }
+        return null
     }
 }

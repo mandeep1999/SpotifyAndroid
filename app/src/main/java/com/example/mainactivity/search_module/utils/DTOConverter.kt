@@ -2,6 +2,7 @@ package com.example.mainactivity.search_module.utils
 
 import com.example.mainactivity.search_module.data.constants.SearchResponseConstants
 import com.example.mainactivity.search_module.data.models.dtos.Icon
+import com.example.mainactivity.search_module.data.models.dtos.SearchItemModel
 import com.example.mainactivity.search_module.data.models.dtos.SearchRowComponentModel
 import com.example.mainactivity.search_module.data.models.enums.IconShape
 import com.example.mainactivity.search_module.data.models.response.AlbumItemModel
@@ -16,6 +17,7 @@ import com.example.mainactivity.search_module.data.models.response.ShowItemModel
 import com.example.mainactivity.search_module.data.models.response.ShowsModel
 import com.example.mainactivity.search_module.data.models.response.TrackItemModel
 import com.example.mainactivity.search_module.data.models.response.TracksModel
+import com.example.mainactivity.search_module.ui.components.SearchRowComponent
 import com.example.mainactivity.utils.general_utils.Utility
 import okhttp3.internal.toImmutableList
 
@@ -25,21 +27,51 @@ object DTOConverter {
      * Function to get the DTO list that will be accepted by our adapter, so our generic component
      * can consume it directly without any modification.
      */
-    fun getSearchItemList(data: SearchResponse?): List<SearchRowComponentModel> {
-        val tempList = ArrayList<SearchRowComponentModel>()
-        data?.let {
-            val albumsList = getListFromAlbums(it.albums)
-            val artistsList = getListFromArtists(it.artists)
-            val tracksList = getListFromTracks(it.tracks)
-            val playListsList = getListFromPlayLists(it.playLists)
-            val showsList = getListFromShows(it.shows)
-            val episodesList = getListFromEpisodes(it.episodes)
-            tempList.addAll(albumsList)
-            tempList.addAll(artistsList)
-            tempList.addAll(tracksList)
-            tempList.addAll(playListsList)
-            tempList.addAll(showsList)
-            tempList.addAll(episodesList)
+    fun getSearchItemList(data: SearchResponse?): List<SearchItemModel> {
+        val tempList = ArrayList<SearchItemModel>()
+        data?.let { searchResponse ->
+            val albumsList = getListFromAlbums(searchResponse.albums)
+            val artistsList = getListFromArtists(searchResponse.artists)
+            val tracksList = getListFromTracks(searchResponse.tracks)
+            val playListsList = getListFromPlayLists(searchResponse.playLists)
+            val showsList = getListFromShows(searchResponse.shows)
+            val episodesList = getListFromEpisodes(searchResponse.episodes)
+            if (albumsList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.ALBUMS)?.let {
+                    tempList.add(it)
+                    tempList.addAll(albumsList)
+                }
+            }
+            if (artistsList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.ARTISTS)?.let {
+                    tempList.add(it)
+                    tempList.addAll(artistsList)
+                }
+            }
+            if (tracksList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.TRACKS)?.let {
+                    tempList.add(it)
+                    tempList.addAll(tracksList)
+                }
+            }
+            if (playListsList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.PLAYLISTS)?.let {
+                    tempList.add(it)
+                    tempList.addAll(playListsList)
+                }
+            }
+            if (showsList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.SHOWS)?.let {
+                    tempList.add(it)
+                    tempList.addAll(showsList)
+                }
+            }
+            if (episodesList.isEmpty().not()) {
+                Utils.getHeaderItem(SearchResponseConstants.EPISODES)?.let {
+                    tempList.add(it)
+                    tempList.addAll(episodesList)
+                }
+            }
         }
         return tempList
     }

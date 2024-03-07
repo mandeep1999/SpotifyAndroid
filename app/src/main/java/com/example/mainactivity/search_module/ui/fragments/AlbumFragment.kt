@@ -102,7 +102,7 @@ class AlbumFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        listAdapter = SearchAdapter(::onItemClick, ::onItemEndIconClick)
+        listAdapter = SearchAdapter(requireContext(),::onItemClick, ::onItemEndIconClick)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = listAdapter

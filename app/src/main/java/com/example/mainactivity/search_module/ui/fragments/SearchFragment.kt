@@ -87,7 +87,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setUpRecentSearchesRecyclerView() {
-        recentSearchAdapter = SearchAdapter(::onSearchItemClick, ::onSearchItemEndIconClick)
+        recentSearchAdapter = SearchAdapter(requireContext(),::onSearchItemClick, ::onSearchItemEndIconClick)
         binding.recentRc.layoutManager = LinearLayoutManager(requireContext())
         binding.recentRc.setHasFixedSize(true)
         binding.recentRc.adapter = recentSearchAdapter
@@ -99,7 +99,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setUpSearchRecyclerView() {
-        newSearchAdapter = SearchAdapter(::onSearchItemClick, ::onSearchItemEndIconClick)
+        newSearchAdapter = SearchAdapter(requireContext(),::onSearchItemClick, ::onSearchItemEndIconClick)
         binding.searchRc.layoutManager = LinearLayoutManager(requireContext())
         binding.searchRc.setHasFixedSize(true)
         binding.searchRc.adapter = newSearchAdapter

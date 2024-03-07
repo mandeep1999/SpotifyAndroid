@@ -37,7 +37,7 @@ data class SearchRowComponentModel(
     @ColumnInfo(name = "type")
     @SerializedName("type")
     var type: String,
-)
+) : SearchItemModel()
 
 data class Icon(
     @SerializedName("drawable")
