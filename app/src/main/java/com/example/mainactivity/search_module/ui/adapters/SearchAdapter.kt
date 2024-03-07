@@ -13,6 +13,12 @@ import com.example.mainactivity.search_module.ui.components.SearchHeaderComponen
 import com.example.mainactivity.search_module.ui.components.SearchRowComponent
 import com.example.mainactivity.search_module.ui.view_holders.SearchRowItemViewHolder
 
+/**
+ * Developed by Mandeep Singh on 07-03-2024
+ * @param context -> Context, Used to get Layout inflater.
+ * @param onItemClick -> The callback to be invoked when an compatible item from the list is selected.
+ * @param onEndIconClick -> The callback to be invoked, when search row component end icon is clicked
+ */
 class SearchAdapter(
     private val context: Context,
     private val onItemClick: (SearchRowComponentModel) -> Unit,
@@ -22,6 +28,11 @@ class SearchAdapter(
     private val layoutInflater = LayoutInflater.from(context)
 
 
+    /**
+     * The difference logic, whether to update items of the list or not.
+     * Since this adapter supports multiple view holders, have to first check the
+     * data model type and compare their identifier.
+     */
     private var diffCallBack = object : DiffUtil.ItemCallback<SearchItemModel>() {
         override fun areItemsTheSame(oldItem: SearchItemModel, newItem: SearchItemModel): Boolean {
             return when {
@@ -42,6 +53,11 @@ class SearchAdapter(
 
     val differ = AsyncListDiffer(this, diffCallBack)
 
+    /**
+     * Function to get correct view holder for the recycler view.
+     * @param parent -> The parent View Group
+     * @param viewType -> This decides the type of view holder we need to create
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRowItemViewHolder {
         return when(viewType){
             R.layout.component_simple_header -> {
@@ -73,6 +89,11 @@ class SearchAdapter(
         return differ.currentList.size
     }
 
+    /**
+     * This os responsible for telling the type of view needs to be inflated,
+     * on the basis of data model of the item.
+     * @param position -> The position is used to get the item from the list.
+     */
     override fun getItemViewType(position: Int): Int {
         return when (differ.currentList.get(position)) {
             is SearchItemModel.SearchHeaderClass -> {
@@ -85,6 +106,9 @@ class SearchAdapter(
 
     }
 
+    /**
+     * This function is used to set the properties from the data model to the view holder.
+     */
     override fun onBindViewHolder(holder: SearchRowItemViewHolder, position: Int) {
         val item = differ.currentList[position]
         when(item){
