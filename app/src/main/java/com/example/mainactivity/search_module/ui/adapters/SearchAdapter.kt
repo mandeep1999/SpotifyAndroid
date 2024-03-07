@@ -30,7 +30,7 @@ class SearchAdapter(
             oldItem: SearchRowComponentModel,
             newItem: SearchRowComponentModel
         ): Boolean {
-            return true
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(

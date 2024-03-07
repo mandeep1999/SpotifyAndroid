@@ -30,6 +30,10 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     private var _recentSearchJob: Job? = null
 
 
+    /**
+     * Function to fetch the list of search items, by taking a search text.
+     * @param searchText -> text on which search is to be called.
+     */
     fun getSearchResults(searchText: String) {
         _searchResponseMutableLiveData.value = Resource.Loading()
         _searchJob?.cancel()
@@ -41,6 +45,9 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
         }
     }
 
+    /**
+     * Function to get the recent searches result from the room database.
+     */
     fun getRecentSearchesFromDB() {
         _recentSearchJob?.cancel()
         _recentSearchJob = viewModelScope.launch(Dispatchers.IO) {
@@ -51,6 +58,10 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
         }
     }
 
+    /**
+     * Function to make a new entry on the room database.
+     * @param searchRowComponentModel -> the entry to be inserted into the database.
+     */
     fun insertRecentSearchIntoDB(searchRowComponentModel: SearchRowComponentModel) {
         viewModelScope.launch(Dispatchers.IO) {
             searchRepository.insertRecentSearchIntoDB(searchRowComponentModel)

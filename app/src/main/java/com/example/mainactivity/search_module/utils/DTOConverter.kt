@@ -21,6 +21,10 @@ import okhttp3.internal.toImmutableList
 
 object DTOConverter {
 
+    /**
+     * Function to get the DTO list that will be accepted by our adapter, so our generic component
+     * can consume it directly without any modification.
+     */
     fun getSearchItemList(data: SearchResponse?): List<SearchRowComponentModel> {
         val tempList = ArrayList<SearchRowComponentModel>()
         data?.let {
@@ -40,6 +44,10 @@ object DTOConverter {
         return tempList
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from albums list
+     * @return List<SearchRowComponentModel>.
+     */
     private fun getListFromAlbums(albums: AlbumsModel?): List<SearchRowComponentModel> {
         return albums?.items?.map {
             SearchRowComponentModel(
@@ -54,6 +62,10 @@ object DTOConverter {
         }?.toImmutableList() ?: emptyList()
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from artists list
+     * @return List<SearchRowComponentModel>.
+     */
     private fun getListFromArtists(artists: ArtistsModel?): List<SearchRowComponentModel> {
         return artists?.items?.map {
             SearchRowComponentModel(
@@ -68,6 +80,10 @@ object DTOConverter {
         }?.toMutableList() ?: emptyList()
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from tracks list
+     * @return List<SearchRowComponentModel>.
+     */
     fun getListFromTracks(tracks: TracksModel?): List<SearchRowComponentModel> {
         return tracks?.items?.map {
             SearchRowComponentModel(
@@ -82,6 +98,10 @@ object DTOConverter {
         }?.toMutableList() ?: emptyList()
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from playlists list
+     * @return List<SearchRowComponentModel>.
+     */
     private fun getListFromPlayLists(playLists: PlayListsModel?): List<SearchRowComponentModel> {
         return playLists?.items?.map {
             SearchRowComponentModel(
@@ -96,6 +116,10 @@ object DTOConverter {
         }?.toMutableList() ?: emptyList()
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from shows list
+     * @return List<SearchRowComponentModel>.
+     */
     private fun getListFromShows(shows: ShowsModel?): List<SearchRowComponentModel> {
         return shows?.items?.map {
             SearchRowComponentModel(
@@ -110,6 +134,10 @@ object DTOConverter {
         }?.toMutableList() ?: emptyList()
     }
 
+    /**
+     * Function to get DTO struct list for our recycler view component from episodes list
+     * @return List<SearchRowComponentModel>.
+     */
     private fun getListFromEpisodes(episodes: EpisodesModel?): List<SearchRowComponentModel> {
         return episodes?.items?.map {
             SearchRowComponentModel(
@@ -153,6 +181,10 @@ object DTOConverter {
         return "Episode: $durationString"
     }
 
+    /**
+     * Function to get the image from an list of images of smallest resolution.
+     * @return Url of the Smallest image
+     */
     private fun getSmallerImage(images: List<ItemImage>?): String? {
         images?.let {
             return it.getOrNull(2)?.url ?: it.getOrNull(1)?.url ?: it.getOrNull(0)?.url
@@ -160,6 +192,10 @@ object DTOConverter {
         return null
     }
 
+    /**
+     * Function to get the image from an list of images of largest resolution.
+     * @return Url of the largest image
+     */
     private fun getBiggerImage(images: List<ItemImage>?): String? {
         images?.let {
             return it.getOrNull(0)?.url ?: it.getOrNull(1)?.url ?: it.getOrNull(2)?.url

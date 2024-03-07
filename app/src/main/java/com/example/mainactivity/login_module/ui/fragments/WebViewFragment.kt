@@ -40,6 +40,9 @@ class WebViewFragment : Fragment() {
         initialiseWebView()
     }
 
+    /**
+     * Function to initialise the web view, and setup the client.
+     */
     private fun initialiseWebView() {
         if (arguments?.getString(KEY_URL) == null) {
             return
@@ -71,6 +74,9 @@ class WebViewFragment : Fragment() {
         )
     }
 
+    /**
+     * Callback function to be invoked after a successfully logging in.
+     */
     private fun moveToNextScreen(){
         startActivity(Intent(requireActivity(), SearchActivity::class.java))
     }

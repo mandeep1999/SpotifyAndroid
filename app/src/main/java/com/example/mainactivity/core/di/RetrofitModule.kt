@@ -15,7 +15,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
+/**
+ * Developed by Mandeep Singh on 07-03-2024. The module is responsible for providing the same
+ * instance of retrofit across the app. The module provides the instance using DI.
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 object RetrofitModule {
@@ -30,6 +33,7 @@ object RetrofitModule {
     ): OkHttpClient.Builder {
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(ChuckerInterceptor.Builder(context).build())
+            .authenticator(tokenAuthenticator)
         okHttpClientBuilder.addInterceptor(
             Interceptor { chain ->
                 val original = chain.request()

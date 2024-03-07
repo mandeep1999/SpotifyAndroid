@@ -10,6 +10,13 @@ import com.example.mainactivity.core.database.converters.IconTypeConverter
 import com.example.mainactivity.search_module.data.dao.RecentSearchesDAO
 import com.example.mainactivity.search_module.data.models.dtos.SearchRowComponentModel
 
+
+/**
+ * Developed by Mandeep Singh on 07-03-2024
+ * Class to have room.
+ * Contains all the tables, converters, dao, and database initialization.
+ */
+
 @Database(
     entities = [
         SearchRowComponentModel::class

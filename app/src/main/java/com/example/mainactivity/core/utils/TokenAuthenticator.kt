@@ -12,6 +12,11 @@ import okhttp3.Route
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Developed by Mandeep Singh on 07-03-2024.
+ * In case of token expiration, we usually have a flow of refresh token to get the new auth token.
+ * But here we can't have that. So here, we just logout the user, and take him to the login screen.
+ */
 @Singleton
 class TokenAuthenticator @Inject constructor() :
     Authenticator {

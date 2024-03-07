@@ -9,6 +9,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Provides appDataBase -> room through DI.
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 object AppDataBaseModule {

@@ -26,6 +26,11 @@ import com.example.mainactivity.search_module.view_models.SearchViewModel
 import com.example.mainactivity.utils.general_utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
+
+/**
+ * Created by Mandeep Singh on 07-03-2024
+ */
+
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
@@ -100,6 +105,10 @@ class SearchFragment : Fragment() {
         binding.searchRc.adapter = newSearchAdapter
     }
 
+    /**
+     * Function to set up live data observers. They listen for data, and update the UI
+     * of the fragment.
+     */
     private fun setUpObservers() {
         viewModel.searchResponseLiveData.observe(viewLifecycleOwner) {
             when (it) {
@@ -129,6 +138,9 @@ class SearchFragment : Fragment() {
         }
     }
 
+    /**
+     * Function to set up listeners on the fragment views.
+     */
     private fun setUpListeners() {
         binding.searchAutoComplete.doOnTextChanged { text, _, _, _ ->
             if (text != null && Utility.isValidText(text.toString())) {
@@ -150,6 +162,9 @@ class SearchFragment : Fragment() {
         }
     }
 
+    /**
+     * Function to show and hide recent searches view -> header + recycler view
+     */
     private fun showHideRecentSearches(searchText: String) {
         if (searchText.isEmpty() && (binding.recentRc.adapter?.itemCount ?: 0) > 0) {
             binding.recentSearchesCl.visibility = View.VISIBLE
@@ -160,17 +175,26 @@ class SearchFragment : Fragment() {
         }
     }
 
+    /**
+     * Function to set the recent searches in the recycler view, these comes from room
+     */
     private fun setUpRecentSearchesList(searchRowComponentModels: List<SearchRowComponentModel>) {
-        binding.recentSearchesCl.isVisible = searchRowComponentModels.isEmpty() == false
-        binding.searchRc.isVisible = searchRowComponentModels.isEmpty() != false
-        recentSearchAdapter?.differ?.submitList(searchRowComponentModels)
+        binding.recentSearchesCl.isVisible = searchRowComponentModels.isEmpty().not() && binding.searchAutoComplete.text.isEmpty()
+        binding.searchRc.isVisible = !binding.recentSearchesCl.isVisible
+        recentSearchAdapter?.differ?.submitList(searchRowComponentModels.reversed())
     }
 
+    /**
+     * Function to set up the list fetched on searching.
+     */
     private fun setUpSearchData(data: SearchResponse?) {
         val searchItemList = DTOConverter.getSearchItemList(data)
         newSearchAdapter?.differ?.submitList(searchItemList)
     }
 
+    /**
+     * Callback function to be invoked, when an item from the recycler view is clicked.
+     */
     private fun onSearchItemClick(searchRowComponentModel: SearchRowComponentModel) {
         viewModel.insertRecentSearchIntoDB(searchRowComponentModel)
         if (Utils.isSectionDeveloped(searchRowComponentModel)) {
@@ -185,6 +209,9 @@ class SearchFragment : Fragment() {
         }
     }
 
+    /**
+     * Callback to be invoked when the end icon on recycler view item is clicked.
+     */
     private fun onSearchItemEndIconClick(searchRowComponentModel: SearchRowComponentModel) {
 
     }

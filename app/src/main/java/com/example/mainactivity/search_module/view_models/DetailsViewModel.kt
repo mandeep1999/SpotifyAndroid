@@ -25,6 +25,12 @@ class DetailsViewModel @Inject constructor(private val detailsRepository: Detail
     private var _artistDetailsMutableLiveData: MutableLiveData<Resource<ArtistResponse>> = MutableLiveData()
     val artistDetailsLiveData get() = _artistDetailsMutableLiveData
 
+    /**
+     * Function to get the details of an album, by using the album id
+     * @param id -> The album id, on which the api call will be made.
+     * The function posts the result on a live data, which is being observed
+     * by the fragment.
+     */
     fun getAlbumDetails(id: String) {
         _albumDetailsMutableLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
@@ -35,6 +41,12 @@ class DetailsViewModel @Inject constructor(private val detailsRepository: Detail
         }
     }
 
+    /**
+     * Function to get the details of an artist, by using the artist id
+     * @param id -> The artist id, on which the api call will be made.
+     * The function posts the result on a live data, which is being observed
+     * by the fragment.
+     */
     fun getArtistDetails(id: String){
         _artistDetailsMutableLiveData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
