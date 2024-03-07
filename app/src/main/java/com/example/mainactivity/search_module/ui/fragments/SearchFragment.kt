@@ -151,7 +151,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun showHideRecentSearches(searchText: String) {
-        if (searchText.isEmpty()) {
+        if (searchText.isEmpty() && (binding.recentRc.adapter?.itemCount ?: 0) > 0) {
             binding.recentSearchesCl.visibility = View.VISIBLE
             binding.searchRc.visibility = View.GONE
         } else {

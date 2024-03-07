@@ -37,7 +37,7 @@ object DTOConverter {
             tempList.addAll(showsList)
             tempList.addAll(episodesList)
         }
-        return Utility.sortList(tempList)
+        return tempList
     }
 
     private fun getListFromAlbums(albums: AlbumsModel?): List<SearchRowComponentModel> {
