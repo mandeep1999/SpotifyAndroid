@@ -58,6 +58,7 @@ class AlbumFragment : Fragment() {
         setUpData()
         setUpObservers()
         setUpRecyclerView()
+        setUpClickListeners()
     }
 
     private fun setUpData() {
@@ -68,15 +69,15 @@ class AlbumFragment : Fragment() {
         viewModel.albumDetailsLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-
+                    binding.errorLayout.root.visibility = View.GONE
                 }
 
                 is Resource.Error -> {
-
-
+                    binding.errorLayout.root.visibility = View.VISIBLE
                 }
 
                 is Resource.Success -> {
+                    binding.errorLayout.root.visibility = View.GONE
                     setUpViews(it.data)
                 }
             }
@@ -114,6 +115,12 @@ class AlbumFragment : Fragment() {
 
     private fun onItemEndIconClick(searchRowComponentModel: SearchRowComponentModel) {
         Toast.makeText(context, "Still cooking!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setUpClickListeners(){
+        binding.errorLayout.retryButton.setOnClickListener {
+            setUpData()
+        }
     }
 
 

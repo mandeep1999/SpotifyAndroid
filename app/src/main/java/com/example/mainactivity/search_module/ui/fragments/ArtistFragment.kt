@@ -54,6 +54,7 @@ class ArtistFragment : Fragment() {
 
     private fun initialise() {
         setUpData()
+        setUpClickListeners()
         setUpObservers()
         setUpRecyclerView()
     }
@@ -66,15 +67,15 @@ class ArtistFragment : Fragment() {
         viewModel.artistDetailsLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-
+                    binding.errorLayout.root.visibility = View.GONE
                 }
 
                 is Resource.Error -> {
-
-
+                    binding.errorLayout.root.visibility = View.VISIBLE
                 }
 
                 is Resource.Success -> {
+                    binding.errorLayout.root.visibility = View.GONE
                     setUpViews(it.data)
                 }
             }
@@ -103,6 +104,12 @@ class ArtistFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = listAdapter
+    }
+
+    private fun setUpClickListeners(){
+        binding.errorLayout.retryButton.setOnClickListener {
+            setUpData()
+        }
     }
 
 

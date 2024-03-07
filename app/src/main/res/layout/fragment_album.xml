@@ -64,6 +64,16 @@
             tools:listitem="@layout/component_search_row"
             app:layout_constraintTop_toBottomOf="@id/description_2_text_view" />
 
+        <include
+            android:id="@+id/error_layout"
+            layout="@layout/error_layout"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
