@@ -20,10 +20,10 @@ class DetailsViewModel @Inject constructor(private val detailsRepository: Detail
     private var _albumDetailsMutableLiveData: MutableLiveData<Resource<AlbumResponse>> =
         MutableLiveData(
         )
-    val albumDetailsLiveData get() = _albumDetailsMutableLiveData
+    val albumDetailsLiveData: LiveData<Resource<AlbumResponse>> get() = _albumDetailsMutableLiveData
 
     private var _artistDetailsMutableLiveData: MutableLiveData<Resource<ArtistResponse>> = MutableLiveData()
-    val artistDetailsLiveData get() = _artistDetailsMutableLiveData
+    val artistDetailsLiveData: LiveData<Resource<ArtistResponse>> get() = _artistDetailsMutableLiveData
 
     /**
      * Function to get the details of an album, by using the album id
