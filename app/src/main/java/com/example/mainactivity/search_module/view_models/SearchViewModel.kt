@@ -20,11 +20,11 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
 
     private val _searchResponseMutableLiveData: MutableLiveData<Resource<SearchResponse>> =
         MutableLiveData()
-    val searchResponseLiveData get() = _searchResponseMutableLiveData
+    val searchResponseLiveData: LiveData<Resource<SearchResponse>> get() = _searchResponseMutableLiveData
 
     private var _recentSearchesMutableLiveData: MutableLiveData<List<SearchRowComponentModel>> =
         MutableLiveData()
-    val recentSearchesLiveData get() = _recentSearchesMutableLiveData
+    val recentSearchesLiveData: LiveData<List<SearchRowComponentModel>> get() = _recentSearchesMutableLiveData
 
     private var _searchJob: Job? = null
     private var _recentSearchJob: Job? = null
